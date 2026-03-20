@@ -439,10 +439,6 @@ function isStoreEnabled(storeKey) {
  */
 function stampCard(anchor, rawName, indexes, ids = {}, nameSels = []) {
   const match = findMatch(indexes, ids, rawName);
-  console.log("Match:", match);
-  console.log("Game Name:", rawName);
-  console.log("Indexes:", indexes);
-  console.log("Ids:", ids);
   if (!match) return false;
 
   const img = anchor.querySelector("img");
