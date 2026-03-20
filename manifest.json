@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Playnite Steam Library Checker",
+  "version": "1.0.0",
+  "description": "Flags Steam games you already own in your Playnite-exported library",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://store.steampowered.com/*",
+    "https://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://store.steampowered.com/app/*",
+        "https://store.steampowered.com/search/*",
+        "https://store.steampowered.com/genre/*",
+        "https://store.steampowered.com/tag/*",
+        "https://store.steampowered.com/explore/*",
+        "https://store.steampowered.com/curator/*",
+        "https://store.steampowered.com/sale/*",
+        "https://store.steampowered.com/recommended/*",
+        "https://store.steampowered.com/wishlist/*",
+        "https://store.steampowered.com/"
+      ],
+      "js": ["config.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

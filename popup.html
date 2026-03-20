@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playnite Steam Library Checker</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #22c55e;
+      --green-dim: rgba(34,197,94,0.12);
+      --green-border: rgba(34,197,94,0.3);
+      --bg: #0c1117;
+      --surface: #141b24;
+      --surface2: #1a2333;
+      --border: rgba(255,255,255,0.07);
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --accent: #38bdf8;
+    }
+
+    body {
+      width: 300px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+    }
+
+    /* Header */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .header-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+    .header-sub {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
+    /* Status card */
+    .status-card {
+      margin: 12px 12px 0;
+      padding: 12px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .status-row:last-child { margin-bottom: 0; }
+    .status-label { color: var(--muted); font-size: 11px; }
+    .status-value {
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--text);
+    }
+    .status-value.green { color: var(--green); }
+    .status-value.blue { color: var(--accent); }
+    .status-value.loading {
+      color: var(--muted);
+      animation: pulse 1.4s ease infinite;
+    }
+
+    /* Actions */
+    .actions {
+      padding: 10px 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .btn-primary {
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      color: var(--green);
+    }
+    .btn-primary:hover { background: rgba(34,197,94,0.18); }
+    .btn-secondary {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-secondary:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 12px;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 8px 14px 10px;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      border: 1px solid rgba(56,189,248,0.3);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 11px;
+      white-space: nowrap;
+      animation: toast-in 0.2s ease;
+      z-index: 10;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-icon">🎮</div>
+    <div>
+      <div class="header-title" id="header-title">—</div>
+      <div class="header-sub" id="header-sub">—</div>
+    </div>
+  </div>
+
+  <div class="status-card">
+    <div class="status-row">
+      <span class="status-label">Games cached</span>
+      <span class="status-value blue" id="stat-count">—</span>
+    </div>
+    <div class="status-row">
+      <span class="status-label">Steam IDs resolved</span>
+      <span class="status-value green" id="stat-ids">—</span>
+    </div>
+    <div class="status-row">
+      <span class="status-label">Cache age</span>
+      <span class="status-value" id="stat-age">—</span>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" id="btn-refresh">
+      🔄 Refresh Library Cache
+    </button>
+    <a class="btn btn-secondary" id="btn-open-library" href="#" target="_blank">
+      📚 Open My Library
+    </a>
+    <button class="btn btn-secondary" id="btn-clear">
+      🗑 Clear Cache
+    </button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="footer">
+    Checks games on <a href="https://store.steampowered.com" target="_blank">Steam</a>
+    against your library at
+    <a id="footer-library-link" href="#" target="_blank">—</a>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
