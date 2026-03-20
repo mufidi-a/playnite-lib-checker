@@ -2,6 +2,15 @@
 
 A Chrome extension that flags games you already own in your [Playnite](https://playnite.link/)-exported library while browsing the Steam store.
 
+## Supported Stores
+
+| Store | Detail page | Browse / Search |
+|-------|-------------|-----------------|
+| **Steam** | ✅ Banner + title badge + floating chip | ✅ Ribbon on cards, badge on rows |
+| **Epic Games Store** | ✅ Banner + title badge + floating chip | ✅ Ribbon on cards |
+| **GOG** | ✅ Banner + title badge + floating chip | ✅ Ribbon on cards |
+| **Humble Store** | ✅ Banner + title badge + floating chip | ✅ Ribbon on cards |
+
 ## Features
 
 - ✅ **Search results** — green `✓ OWNED` badge next to every game you own

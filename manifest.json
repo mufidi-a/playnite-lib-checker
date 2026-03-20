@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Playnite Steam Library Checker",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Flags Steam games you already own in your Playnite-exported library",
   "permissions": [
     "storage"
@@ -25,6 +25,18 @@
         "https://store.steampowered.com/"
       ],
       "js": ["config.js", "content.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://store.epicgames.com/*",
+        "https://www.gog.com/*",
+        "https://gaming.amazon.com/*",
+        "https://www.humblebundle.com/store*",
+        "https://*.itch.io/*",
+        "https://itch.io/*"
+      ],
+      "js": ["config.js", "lib.js", "content-stores.js"],
       "run_at": "document_idle"
     }
   ],
