@@ -9,9 +9,7 @@ All notable changes to Playnite Library Checker are documented here.
 ### ⚡ New Stores
 - **Epic Games Store** (`store.epicgames.com`) — ribbon on browse cards, float chip on product pages
 - **GOG** (`gog.com`) — ribbon on browse cards, banner + title badge + float chip on product pages
-- **Amazon Games** (`gaming.amazon.com`) — float chip on product pages
 - **Humble Store** (`humblebundle.com/store`) — ribbon on browse cards, banner + title badge + float chip
-- **itch.io** (`*.itch.io`) — ribbon on browse cards, banner + title badge + float chip
 
 ### 🏗️ Architecture
 - Split monolithic `content.js` into three focused files:
