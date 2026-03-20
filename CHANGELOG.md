@@ -16,9 +16,6 @@ All notable changes to Playnite Library Checker are documented here.
   - `lib.js` — shared cache, matching, CSS, and badge helpers used by all content scripts
   - `content-steam.js` — Steam-specific logic (App ID extraction, Steam selectors)
   - `content-stores.js` — all other stores via a `STORE_PROFILE` system
-- `config.js` variable renamed from `XYF_CONFIG` to `STE_CONFIG` for generality
-- Extension renamed from "Xyfactory Library Checker" to "Playnite Library Checker"
-- Manifest `host_permissions` changed from hardcoded `xyfactory.github.io` to `https://*/*` to support any Playnite export URL
 
 ### 🔍 Matching Improvements
 - **Epic slug matching** — extracts Epic product slug from Playnite game pages (supports both old `/product/SLUG` and new `/p/SLUG` URL formats)
